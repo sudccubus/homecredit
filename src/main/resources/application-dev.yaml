@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/homecredit-test-task-db
+    username: postgres
+    password: 89205670641
+
+  liquibase:
+    changeLog: classpath:db/changelog/db.changelog-master.xml
+
+  jpa:
+    show-sql: true

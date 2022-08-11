@@ -1,0 +1,51 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="kovalevda" id="1">
+        <createTable tableName="users">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_pkey"/>
+            </column>
+            <column name="name" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="role">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="role_pkey"/>
+            </column>
+            <column name="title" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_role">
+            <column name="user_role_id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_role_pkey"/>
+            </column>
+            <column name="user_id" type="integer">
+                <constraints nullable="false" references="users(id)" foreignKeyName="user_fk"/>
+            </column>
+            <column name="role_id" type="integer">
+                <constraints nullable="false" references="role(id)" foreignKeyName="role_fk"/>
+            </column>
+        </createTable>
+
+        <insert tableName="role">
+            <column name="id">1</column>
+            <column name="title">ADMIN</column>
+        </insert>
+        <insert tableName="role">
+            <column name="id">2</column>
+            <column name="title">MANAGER</column>
+        </insert>
+        <insert tableName="role">
+            <column name="id">3</column>
+            <column name="title">PRORAB</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
