@@ -2,7 +2,7 @@ package com.homecredit.service;
 
 import com.homecredit.dao.model.User;
 import com.homecredit.dao.repository.UserRepository;
-import com.homecredit.utils.ImageUtil;
+import com.homecredit.service.sub.ImageLoader;
 import com.homecredit.web.dto.UserDto;
 import com.homecredit.web.dto.mapper.UserMapper;
 import com.homecredit.web.exception.EntityNotFoundException;
@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     private final UserRepository userRepository;
+
+    private final ImageLoader imageLoader;
 
     @Override
     public UserDto create(UserDto userDto) {
@@ -47,7 +49,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String setPhoto(Integer id, MultipartFile file) {
-        return ImageUtil.uploadImage(file);
+        User user = findById(id);
+
+        String photoTitle = imageLoader.uploadImage(file, user.getPhotoTitle());
+        user.setPhotoTitle(photoTitle);
+        userRepository.save(user);
+
+        return photoTitle;
     }
 
     private User findById(Integer id) {

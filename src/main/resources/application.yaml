@@ -6,3 +6,6 @@ spring:
 
   liquibase:
     changeLog: classpath:db/changelog/db.changelog-master.xml
+
+storage:
+  imageLocation: \storage\image

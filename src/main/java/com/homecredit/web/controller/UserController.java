@@ -35,9 +35,7 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> setPhoto(@RequestParam("file") MultipartFile file) {
-        userService.setPhoto(null, file);
-
-        return null;
+    public ResponseEntity<String> setPhoto(Integer id, @RequestParam("file") MultipartFile file) {
+        return ResponseEntity.ok(userService.setPhoto(id, file));
     }
 }

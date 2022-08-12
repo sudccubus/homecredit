@@ -11,4 +11,4 @@ spring:
     show-sql: true
 
 storage:
-  imageLocation: /storage/image
+  imageLocation: \storage\image

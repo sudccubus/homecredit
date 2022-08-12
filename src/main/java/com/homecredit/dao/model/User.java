@@ -21,6 +21,8 @@ public class User {
 
     private String name;
 
+    private String photoTitle;
+
     @ManyToMany
     @JoinTable(
             name = "user_role",
