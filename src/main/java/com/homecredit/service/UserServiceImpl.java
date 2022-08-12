@@ -5,8 +5,11 @@ import com.homecredit.dao.repository.UserRepository;
 import com.homecredit.web.dto.UserDto;
 import com.homecredit.web.dto.mapper.UserMapper;
 import com.homecredit.web.exception.EntityNotFoundException;
+import com.homecredit.web.exception.IncorrectDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
@@ -24,10 +27,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto update(UserDto userDto) {
+        Integer id = userDto.getId();
+
+        if (isNull(id)) throw new IncorrectDataException("Id field must be filled");
+
+        User user = findById(id);
+        userMapper.updateFromDto(userDto, user);
+
+        return userMapper.toDto(userRepository.save(user));
+    }
+
+    @Override
     public void delete(Integer id) {
-        userRepository.delete(
-                userRepository.findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException("There is no user with id = %s".formatted(id)))
-        );
+        userRepository.delete(findById(id));
+    }
+
+    private User findById(Integer id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("There is no user with id = %s".formatted(id)));
     }
 }
