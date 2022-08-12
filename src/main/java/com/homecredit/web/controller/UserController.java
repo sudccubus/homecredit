@@ -22,6 +22,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getAll());
     }
 
+    @GetMapping("admins")
+    public ResponseEntity<List<UserDto>> getAdminList() {
+        return ResponseEntity.ok(userService.getAdminList());
+    }
+
     @PostMapping
     public ResponseEntity<UserDto> create(@RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.create(userDto));

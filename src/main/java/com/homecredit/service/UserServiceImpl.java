@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> getAdminList() {
+        return userMapper.toListDto(userRepository.findByRolesTitle("ADMIN"));
+    }
+
+    @Override
     public UserDto create(UserDto userDto) {
         User user = userRepository.save(userMapper.toEntity(userDto));
 

@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "select * from v_user_view", nativeQuery = true)
     List<UserView> findAllWithRoles();
+
+    List<User> findByRolesTitle(String title);
 }

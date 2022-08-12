@@ -9,6 +9,8 @@ public interface UserService {
 
     List<UserDto> getAll();
 
+    List<UserDto> getAdminList();
+
     UserDto create(UserDto userDto);
 
     UserDto update(UserDto userDto);
