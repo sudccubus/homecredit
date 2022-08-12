@@ -2,7 +2,7 @@ package com.homecredit.service;
 
 import com.homecredit.dao.model.Role;
 import com.homecredit.dao.repository.RoleRepository;
-import com.homecredit.web.exception.NotFoundException;
+import com.homecredit.web.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
         return titles.stream()
                 .map(title ->
                         roleRepository.findByTitle(title)
-                                .orElseThrow(() -> new NotFoundException("'%s' role does not exist".formatted(title))))
+                                .orElseThrow(() -> new EntityNotFoundException("'%s' role does not exist".formatted(title))))
                 .collect(Collectors.toList());
     }
 

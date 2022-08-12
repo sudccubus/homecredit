@@ -4,10 +4,7 @@ import com.homecredit.service.UserService;
 import com.homecredit.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
@@ -19,5 +16,12 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDto> create(@RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.create(userDto));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        userService.delete(id);
+
+        return ResponseEntity.ok().build();
     }
 }

@@ -4,6 +4,7 @@ import com.homecredit.dao.model.User;
 import com.homecredit.dao.repository.UserRepository;
 import com.homecredit.web.dto.UserDto;
 import com.homecredit.web.dto.mapper.UserMapper;
+import com.homecredit.web.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,13 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.save(userMapper.toEntity(userDto));
 
         return userMapper.toDto(user);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        userRepository.delete(
+                userRepository.findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException("There is no user with id = %s".formatted(id)))
+        );
     }
 }
