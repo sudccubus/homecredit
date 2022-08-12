@@ -48,4 +48,10 @@
         </insert>
     </changeSet>
 
+    <changeSet id="3" author="kovalevda">
+        <addColumn tableName="users">
+            <column name="photo_title" type="varchar(128)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

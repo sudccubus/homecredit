@@ -3,8 +3,12 @@ package com.homecredit.web.controller;
 import com.homecredit.service.UserService;
 import com.homecredit.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.print.attribute.standard.Media;
 
 @RestController
 @RequestMapping("user")
@@ -28,5 +32,12 @@ public class UserController {
         userService.delete(id);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> setPhoto(@RequestParam("file") MultipartFile file) {
+        userService.setPhoto(null, file);
+
+        return null;
     }
 }

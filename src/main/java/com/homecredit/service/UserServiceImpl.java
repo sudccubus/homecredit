@@ -2,12 +2,14 @@ package com.homecredit.service;
 
 import com.homecredit.dao.model.User;
 import com.homecredit.dao.repository.UserRepository;
+import com.homecredit.utils.ImageUtil;
 import com.homecredit.web.dto.UserDto;
 import com.homecredit.web.dto.mapper.UserMapper;
 import com.homecredit.web.exception.EntityNotFoundException;
 import com.homecredit.web.exception.IncorrectDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import static java.util.Objects.isNull;
 
@@ -41,6 +43,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Integer id) {
         userRepository.delete(findById(id));
+    }
+
+    @Override
+    public String setPhoto(Integer id, MultipartFile file) {
+        return ImageUtil.uploadImage(file);
     }
 
     private User findById(Integer id) {

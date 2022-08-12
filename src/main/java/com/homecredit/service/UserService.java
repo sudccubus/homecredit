@@ -1,6 +1,7 @@
 package com.homecredit.service;
 
 import com.homecredit.web.dto.UserDto;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 
@@ -9,4 +10,6 @@ public interface UserService {
     UserDto update(UserDto userDto);
 
     void delete(Integer id);
+
+    String setPhoto(Integer id, MultipartFile file);
 }
