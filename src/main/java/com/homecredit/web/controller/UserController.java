@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.print.attribute.standard.Media;
+import java.util.List;
 
 @RestController
 @RequestMapping("user")
@@ -16,6 +16,11 @@ import javax.print.attribute.standard.Media;
 public class UserController {
 
     private final UserService userService;
+
+    @GetMapping
+    public ResponseEntity<List<UserDto>> getAll() {
+        return ResponseEntity.ok(userService.getAll());
+    }
 
     @PostMapping
     public ResponseEntity<UserDto> create(@RequestBody UserDto userDto) {

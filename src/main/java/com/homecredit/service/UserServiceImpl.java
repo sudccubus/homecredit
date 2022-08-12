@@ -5,11 +5,14 @@ import com.homecredit.dao.repository.UserRepository;
 import com.homecredit.service.sub.ImageLoader;
 import com.homecredit.web.dto.UserDto;
 import com.homecredit.web.dto.mapper.UserMapper;
+import com.homecredit.web.dto.mapper.UserViewMapper;
 import com.homecredit.web.exception.EntityNotFoundException;
 import com.homecredit.web.exception.IncorrectDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 import static java.util.Objects.isNull;
 
@@ -19,9 +22,16 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
+    private final UserViewMapper userViewMapper;
+
     private final UserRepository userRepository;
 
     private final ImageLoader imageLoader;
+
+    @Override
+    public List<UserDto> getAll() {
+        return userViewMapper.toDtoList(userRepository.findAllWithRoles());
+    }
 
     @Override
     public UserDto create(UserDto userDto) {
